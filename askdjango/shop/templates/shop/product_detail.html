@@ -1,0 +1,8 @@
+{% load humanize %}
+
+<h1>{{ product.name }}</h1>
+{{ product.price|intcomma }}
+<hr/>
+{{ product.desc }}
+<hr/>
+<a href="{% url "shop:product_list" %}">목록</a>

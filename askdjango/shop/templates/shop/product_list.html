@@ -16,12 +16,19 @@
         <tbody>
         {% for product in product_list %}
         <tr>
-            <td>{{ product.name }}</td>
+            <td>
+                <a href="{{ product.get_absolute_url }}">
+                    {{ product.name }}
+                </a>
+            </td>
             <td>{{ product.price|intcomma }}</td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <hr/>
+    <a href="{% url "shop:product_new" %}" class="btn btn-primary">생성</a>
 
 </body>
 </html>
