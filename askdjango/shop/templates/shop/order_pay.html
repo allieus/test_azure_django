@@ -1,0 +1,39 @@
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://service.iamport.kr/js/iamport.payment-1.1.1.js"></script>
+
+<script>
+var IMP = window.IMP;
+IMP.init('imp24767663'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용.
+IMP.request_pay({
+    pg: 'html5_inicis',
+    pay_method: 'card',
+    merchant_uid: 'merchant_' + new Date().getTime(),
+    name: '{{ order.name }}',
+    amount: {{ order.amount }},
+    buyer_email: '{{ order.buyer_email }}',
+    buyer_name: '{{ order.buyer_name }}'
+}, function(rsp) {
+    console.log(rsp);
+    if ( rsp.success ) {
+        var msg = '결제가 완료되었습니다.';
+        msg += '고유ID : ' + rsp.imp_uid;
+        msg += '상점 거래ID : ' + rsp.merchant_uid;
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        msg += '카드 승인번호 : ' + rsp.apply_num;
+        alert(msg);
+    }
+    else {
+        var msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+        alert(msg);
+    }
+});
+
+</script>
+
+pg: 'html5_inicis'
+pay_method: 'card'
+{{ order.name }}
+{{ order.amount }}
+{{ order.buyer_name }}
+{{ order.buyer_email }}
